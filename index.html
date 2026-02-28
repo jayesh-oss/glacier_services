@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glacier Services | Premium AC & Fridge Maintenance</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // NOTE: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key
+            emailjs.init("joihvgq7zvpL7YdZn");
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-snowflake"></i> Glacier
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#book" class="btn-primary nav-btn">Book Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="overlay"></div>
+        <div class="container hero-content">
+            <h1 class="fade-in">Restore the Chill.</h1>
+            <p class="fade-in delay-1">Premium maintenance for your AC and Refrigerator. Fast, reliable, and ice-cold.
+            </p>
+            <div class="hero-btns fade-in delay-2">
+                <a href="#book" class="btn-primary pulse">Book Service</a>
+                <a href="#services" class="btn-secondary">Explore Services</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Expertise</h2>
+                <div class="underline"></div>
+                <p>Top-tier diagnostics and repair for your cooling appliances.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Service 1: AC -->
+                <div class="service-card glass-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <h3>AC Maintenance</h3>
+                    <p>Complete servicing, gas charging, and installation with precision.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Power Jet Cleaning</li>
+                        <li><i class="fa-solid fa-check"></i> Gas Refill (R32/R410A)</li>
+                        <li><i class="fa-solid fa-check"></i> Leakage Repair</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2: Fridge -->
+                <div class="service-card glass-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-icicles"></i>
+                    </div>
+                    <h3>Refrigerator Repair</h3>
+                    <p>From thermostat issues to compressor failure, we fix it all.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Compressor Check</li>
+                        <li><i class="fa-solid fa-check"></i> Door Gasket Replacement</li>
+                        <li><i class="fa-solid fa-check"></i> Cooling Coil Repair</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3: Annual Plan -->
+                <div class="service-card glass-card highlight">
+                    <div class="badge">Recommended</div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>Annual AMC</h3>
+                    <p>Year-round peace of mind with our Annual Maintenance Contracts.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> 2 Free Services/Year</li>
+                        <li><i class="fa-solid fa-check"></i> Priority Support</li>
+                        <li><i class="fa-solid fa-check"></i> No Visiting Charges</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container about-container">
+            <div class="about-content">
+                <h2>Why Choose Glacier?</h2>
+                <div class="underline"></div>
+                <p>We are a team of certified experts dedicated to keeping your environment cool and comfortable. With
+                    over 10 years of experience, we guarantee satisfaction on every repair and installation.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>10k+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Expert Technicians</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="visual-card">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>Expert Repair</span>
+                </div>
+                <div class="visual-card">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <span>Fair Pricing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact mapping to allow navigation -->
+    <div id="contact"></div>
+
+    <section id="book" class="booking-section">
+        <div class="container booking-container">
+            <div class="booking-info">
+                <h2>Book Your Service</h2>
+                <p>Schedule a visit from our certified technicians today.</p>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+91 9594036603</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info.glacierservices@gmail.com</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Kharkopar, Navi Mumbai, India</span>
+                </div>
+            </div>
+            <form class="booking-form glass-card" id="bookingForm">
+                <h3>Request Appointment</h3>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+91 90000 00000" required>
+                </div>
+                <div class="form-group">
+                    <label for="service-type">Service Type</label>
+                    <select id="service-type" required>
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="ac-service">AC Service / Repair</option>
+                        <option value="fridge-repair">Refrigerator Repair</option>
+                        <option value="installation">Installation</option>
+                        <option value="amc">AMC Enquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-snowflake"></i> Glacier
+                <p>Restoring comfort, one appliance at a time.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#book">Book Now</a>
+                <a href="admin.html" style="color: var(--primary); margin-top: 10px; font-size: 0.9rem;"><i
+                        class="fa-solid fa-lock"></i> Admin Panel</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Glacier Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

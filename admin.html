@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Glacier Services</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-container {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .bg-glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--text);
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: var(--primary);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .status-pending {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Overlay -->
+    <div id="loginOverlay"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 2000; display: flex; align-items: center; justify-content: center;">
+        <div class="bg-glass" style="max-width: 400px; width: 90%; text-align: center;">
+            <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 20px;">Admin Access</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Enter Password" required
+                        style="text-align: center; width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p id="loginError" style="color: #ef4444; margin-top: 15px; display: none;">Incorrect password</p>
+            <a href="index.html"
+                style="color: var(--text-muted); display: block; margin-top: 20px; font-size: 0.9rem;">Back to
+                Website</a>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-snowflake"></i> Glacier Admin
+            </a>
+            <a href="index.html" class="btn-primary nav-btn">Back to Site</a>
+        </div>
+    </nav>
+
+    <div class="container admin-container">
+        <div class="admin-header">
+            <h1>Service Requests</h1>
+            <button onclick="clearAllData()" class="btn-secondary" style="border-color: #ef4444; color: #ef4444;">Clear
+                All Data</button>
+        </div>
+
+        <div class="bg-glass">
+            <table id="bookingsTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Customer Name</th>
+                        <th>Phone</th>
+                        <th>Service Type</th>
+                        <th>Preferred Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-inbox" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                <p>No service requests found.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check for admin "login" (simple simulation)
+        const LOGIN_KEY = 'glacier_admin_logged_in';
+        const PASSWORD = 'admin'; // Simple password for demo
+
+        function checkAuth() {
+            if (sessionStorage.getItem(LOGIN_KEY) === 'true') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                loadBookings();
+            } else {
+                document.getElementById('loginOverlay').style.display = 'flex';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('password').value;
+            if (input === PASSWORD) {
+                sessionStorage.setItem(LOGIN_KEY, 'true');
+                checkAuth();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        function loadBookings() {
+            const bookings = JSON.parse(localStorage.getItem('glacier_bookings')) || [];
+            const tbody = document.getElementById('bookingsBody');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('bookingsTable');
+
+            tbody.innerHTML = '';
+
+            if (bookings.length === 0) {
+                table.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            emptyState.style.display = 'none';
+
+            // Sort by date (newest first)
+            bookings.reverse().forEach((booking, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${new Date(booking.timestamp).toLocaleDateString()}</td>
+                    <td>${booking.name}</td>
+                    <td>${booking.phone}</td>
+                    <td style="text-transform: capitalize;">${booking.service.replace('-', ' ')}</td>
+                    <td>${booking.date}</td>
+                    <td><span class="status-${booking.status.toLowerCase()}">${booking.status}</span></td>
+                    <td>
+                        ${booking.status === 'Pending' ?
+                        `<button onclick="updateStatus(${index}, 'Completed')" class="action-btn"><i class="fa-solid fa-check"></i> Complete</button>` :
+                        '<span style="color: var(--text-muted);"><i class="fa-solid fa-check-double"></i> Done</span>'
+                    }
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateStatus(originalIndex, newStatus) {
+            // Since we reversed the array for display, we need to find the actual index
+            // Ideally we'd use IDs, but simple index manipulation for this demo:
+            const bookings = JSON.parse(localStorage.getItem('glacier_bookings')) || [];
+            // Calculate real index based on reversed view: length - 1 - displayedIndex
+            const realIndex = bookings.length - 1 - originalIndex;
+
+            if (bookings[realIndex]) {
+                bookings[realIndex].status = newStatus;
+                localStorage.setItem('glacier_bookings', JSON.stringify(bookings));
+                loadBookings();
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to delete all booking records?')) {
+                localStorage.removeItem('glacier_bookings');
+                loadBookings();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+
+</html>
