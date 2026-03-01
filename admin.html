@@ -131,6 +131,7 @@
                     <tr>
                         <th>Date</th>
                         <th>Customer Name</th>
+                        <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Service Type</th>
@@ -198,6 +199,7 @@
                 tr.innerHTML = `
                     <td>${new Date(booking.timestamp).toLocaleDateString()}</td>
                     <td>${booking.name}</td>
+                    <td><a href="mailto:${booking.email}" style="color: var(--primary); text-decoration: none;">${booking.email || 'N/A'}</a></td>
                     <td>${booking.phone}</td>
                     <td>${booking.address || 'N/A'}</td>
                     <td style="text-transform: capitalize;">${booking.service.replace('-', ' ')}</td>

@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get form values
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
             const service = document.getElementById('service-type').value;
             const date = document.getElementById('date').value;
             const address = document.getElementById('address').value;
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: Date.now(),
                 name,
                 phone,
+                email,
                 address,
                 service,
                 date,
@@ -87,9 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Send Email via EmailJS
             // NOTE: Replace 'service_1q9qhfa' and 'YOUR_TEMPLATE_ID' with your actual EmailJS IDs
             const templateParams = {
-                name: name, // Matches {{name}} in default template
-                email: "Phone: " + phone + " | Address: " + address, // Matches {{email}} in default template
-                message: `New Service Request: ${service} on ${date}.\nPhone: ${phone}\nAddress: ${address}`
+                time: new Date().toLocaleString(), // Added for custom HTML template
+                name: name, // Matches {{name}}
+                customer_email: email, // Used for the Auto-Reply functionality
+                email: "Email: " + email + " | Phone: " + phone + " | Address: " + address, // Plain text for {{email}}
+                message: `Service: ${service.replace('-', ' ').toUpperCase()} | Preferred Date: ${date}` // Plain text for {{message}}
             };
 
             emailjs.send('service_1q9qhfa', 'template_5sggaql', templateParams)
