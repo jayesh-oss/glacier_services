@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const phone = document.getElementById('phone').value;
             const service = document.getElementById('service-type').value;
             const date = document.getElementById('date').value;
+            const address = document.getElementById('address').value;
 
             // Simulation of submission
             const btn = bookingForm.querySelector('button');
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: Date.now(),
                 name,
                 phone,
+                address,
                 service,
                 date,
                 timestamp: new Date().toISOString(),
@@ -86,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // NOTE: Replace 'service_1q9qhfa' and 'YOUR_TEMPLATE_ID' with your actual EmailJS IDs
             const templateParams = {
                 name: name, // Matches {{name}} in default template
-                email: "Phone: " + phone, // Matches {{email}} in default template
-                message: `New Service Request: ${service} on ${date}. Phone: ${phone}`
+                email: "Phone: " + phone + " | Address: " + address, // Matches {{email}} in default template
+                message: `New Service Request: ${service} on ${date}.\nPhone: ${phone}\nAddress: ${address}`
             };
 
             emailjs.send('service_1q9qhfa', 'template_5sggaql', templateParams)
@@ -106,4 +108,100 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+
+    // --- Reviews Logic ---
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    const reviewForm = document.getElementById('reviewForm');
+
+    // Default reviews to show if local storage is empty
+    const defaultReviews = [
+        {
+            name: "Amit Sharma",
+            rating: 5,
+            text: "Excellent service! The technician arrived on time and fixed my AC's cooling issue completely. Highly recommended."
+        },
+        {
+            name: "Priya Patel",
+            rating: 4,
+            text: "Very professional team. They cleaned my refrigerator and replaced the faulty part quickly. Pricing was fair."
+        },
+        {
+            name: "Rahul Desai",
+            rating: 5,
+            text: "I took their Annual Maintenance Contract. Best decision ever. No more worrying about sudden breakdowns in summer!"
+        }
+    ];
+
+    // Initialize reviews in local storage if empty
+    if (!localStorage.getItem('glacier_reviews')) {
+        localStorage.setItem('glacier_reviews', JSON.stringify(defaultReviews));
+    }
+
+    // Function to generate stars HTML
+    const getStarsHTML = (rating) => {
+        let starsHTML = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                starsHTML += '<i class="fa-solid fa-star"></i>';
+            } else {
+                starsHTML += '<i class="fa-regular fa-star"></i>';
+            }
+        }
+        return starsHTML;
+    };
+
+    // Function to render reviews
+    const renderReviews = () => {
+        if (!reviewsContainer) return;
+
+        const reviews = JSON.parse(localStorage.getItem('glacier_reviews')) || [];
+        reviewsContainer.innerHTML = ''; // Clear current
+
+        reviews.forEach(review => {
+            const card = document.createElement('div');
+            card.className = 'review-card glass-card';
+            card.innerHTML = `
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <h4>${review.name}</h4>
+                        <div class="stars">
+                            ${getStarsHTML(review.rating)}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-quote-right quote-icon"></i>
+                </div>
+                <p>"${review.text}"</p>
+            `;
+            reviewsContainer.appendChild(card);
+        });
+    };
+
+    // Initial render
+    renderReviews();
+
+    // Handle new review submission
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('review-name').value;
+            const rating = parseInt(document.getElementById('review-rating').value);
+            const text = document.getElementById('review-text').value;
+
+            const newReview = { name, rating, text };
+
+            // Save to local storage
+            const reviews = JSON.parse(localStorage.getItem('glacier_reviews')) || [];
+            reviews.unshift(newReview); // Add to beginning
+            localStorage.setItem('glacier_reviews', JSON.stringify(reviews));
+
+            // Re-render if on the same page, otherwise just reset form
+            if (reviewsContainer) {
+                renderReviews();
+            }
+            reviewForm.reset();
+            alert('Thank you for your feedback! You can view it on the reviews page.');
+        });
+    }
+
 });

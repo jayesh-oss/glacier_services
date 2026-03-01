@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews | Glacier Services</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .reviews-page {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .review-header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .review-header-section {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-snowflake"></i> Glacier
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="reviews.html" style="color: var(--primary);">Reviews</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="index.html#book" class="btn-primary nav-btn">Book Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container reviews-page">
+        <div class="review-header-section">
+            <div>
+                <h1>Customer Feedback</h1>
+                <p style="color: var(--text-muted); margin-top: 10px;">Don't just take our word for it. Here's what our
+                    customers have to say.</p>
+            </div>
+            <a href="index.html" class="btn-secondary">Back to Home</a>
+        </div>
+
+        <section class="reviews-section" style="padding: 0; background: transparent;">
+            <div class="reviews-grid" id="reviewsContainer">
+                <!-- Reviews injected here by main.js -->
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer" style="margin-top: 100px;">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-snowflake"></i> Glacier
+                <p>Restoring comfort, one appliance at a time.</p>
+            </div>
+            <div class="copyright" style="width: 100%; border: none;">
+                <p>&copy; 2026 Glacier Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
